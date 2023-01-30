@@ -14,5 +14,7 @@
 
 ;; constants
 ;;
-(define-constant owner tx-sender)
+(define-constant contract-owner tx-sender)
+
+(define-read-only (owner) (ok contract-owner))
 

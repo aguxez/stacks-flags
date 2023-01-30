@@ -26,14 +26,6 @@
 
 ;; public functions
 ;;
-;; #[allow(unchecked_data)]
-(define-public (set-flag (contract principal) (flag-name (buff 32)) (state bool))
-  (begin
-    (asserts! (is-owner contract) err-not-owner)
-    (ok (map-set flags {contract: contract, name: flag-name} state))
-  )
-)
-
 (define-public (set-contract-owner (contract <ownership-trait>))
   (let
     (
@@ -41,6 +33,14 @@
     )
     (asserts! (is-eq owner tx-sender) err-not-owner)
     (ok (map-set contract-owner {contract: (contract-of contract), owner: tx-sender} true))
+  )
+)
+
+;; #[allow(unchecked_data)]
+(define-public (set-flag (contract principal) (flag-name (buff 32)) (state bool))
+  (begin
+    (asserts! (is-owner contract) err-not-owner)
+    (ok (map-set flags {contract: contract, name: flag-name} state))
   )
 )
 
